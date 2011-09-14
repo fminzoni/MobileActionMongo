@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<fx:Object xmlns="http://www.spicefactory.org/parsley"
+		   xmlns:fx="http://ns.adobe.com/mxml/2009"
+		   xmlns:mobile="com.kdata.mobile.*"
+		   xmlns:presentation="com.kdata.mobile.presentation.*"
+		   xmlns:application="com.kdata.mobile.application.*"
+		   xmlns:domain="com.kdata.mobile.domain.*"
+		   xmlns:infrastructure="com.kdata.mobile.infrastructure.*">
+	
+	<fx:Declarations>
+		
+		<mobile:MongoConfig />
+				
+		<application:InitHandler />
+		<application:MongoHandler />
+		
+		<domain:AppInit />
+		
+		<infrastructure:MongoQuery />
+		
+		<presentation:LoginView />
+				
+	</fx:Declarations>
+	
+</fx:Object>
