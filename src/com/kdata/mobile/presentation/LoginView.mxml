@@ -29,14 +29,7 @@
 				
 				// connect to MongoDB
 				dispatchMessage( InitEvent.getAppReady() );
-			}	
-			
-			public function test() : void {
-			
-				// query to MongoDB
-				dispatchMessage( MongoQueryEvent.getMongoSendQuery() );
-			}	
-			
+			}				
 		]]>
 	</fx:Script>
 	
@@ -59,7 +52,6 @@
 		</s:FormItem>		
 		<s:HGroup>
 			<s:Button id="btnConnect" label="Connect" click="login()" />
-			<s:Button id="btnTest" label="Test" click="test()" />
 		</s:HGroup>
 	</s:Form>
 	
