@@ -1,10 +1,16 @@
 package com.kdata.mobile.application
 {
 	import com.kdata.mobile.infrastructure.MongoQuery;
-
+	import com.kdata.mobile.presentation.Documents;
+	import com.kdata.mobile.presentation.MobileActionMongoHome;
+	import com.kdata.mobile.presentation.PopUp;
+	
+	import mx.collections.ArrayCollection;
+	import mx.core.FlexGlobals;
+	
 	public class MongoHandler
 	{
-				
+		[Inject] [Bindable] public var model : Documents;		
 		[Inject] public var mongoQuery : MongoQuery;
 		
 		/**
@@ -28,8 +34,23 @@ package com.kdata.mobile.application
 				case MongoQueryEvent.MONGO_REPLY_RECEIVED:
 					// set the results
 					trace(event.result);
+					model.documents=event.result;
 					break;
 				
+				case MongoQueryEvent.MONGO_LOGIN_RESULT:
+					FlexGlobals.topLevelApplication.navigator.pushView(MobileActionMongoHome);
+					break;
+				
+				case MongoQueryEvent.MONGO_LOGIN_FAULT:
+					var obj:Object = new Object();
+					obj.title = "Error";
+					obj.text = "Login Failed";
+					var popup:PopUp = new PopUp();
+					popup.show(obj);
+					break;
+				case MongoQueryEvent.MONGO_DISCONNECT:
+					mongoQuery.disconnect();
+					break;
 				default:
 					// should never get here
 					trace( "MongoHandler:mongoHandler: unknown event type" );

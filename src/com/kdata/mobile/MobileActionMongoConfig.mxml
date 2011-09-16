@@ -13,7 +13,7 @@
 				
 		<application:InitHandler />
 		<application:MongoHandler />
-		
+		<presentation:Documents/>
 		<domain:AppInit />
 		
 		<infrastructure:MongoQuery />

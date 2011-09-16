@@ -32,6 +32,15 @@ package com.kdata.mobile.infrastructure
 			db.connect();
 			var credentials:Credentials = new Credentials(mongoConfig.dbUser,mongoConfig.dbPassword);			
 			var auth:Authentication = new Authentication(db,credentials);
+			auth.login(loginHandler);
+		}
+		
+		private function loginHandler(logged:Boolean):void
+		{
+				if(logged)
+					dispatchMessage(MongoQueryEvent.getMongoLoginResult());
+				else
+					dispatchMessage(MongoQueryEvent.getMongoLoginFault());
 		}
 		
 		/**
@@ -48,6 +57,11 @@ package com.kdata.mobile.infrastructure
 				documents.addAll( new ArrayCollection( reply.documents ) );
 			}
 			dispatchMessage( MongoQueryEvent.getMongoReplyReceived( documents ) );
+		}
+		
+		public function disconnect():void
+		{
+			db.close();
 		}
 	}
 }
