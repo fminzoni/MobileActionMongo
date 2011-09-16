@@ -51,6 +51,10 @@ package com.kdata.mobile.application
 				case MongoQueryEvent.MONGO_DISCONNECT:
 					mongoQuery.disconnect();
 					break;
+				case MongoQueryEvent.MONGO_INSERT:
+					mongoQuery.Insert(event.documents)
+					break;				
+				
 				default:
 					// should never get here
 					trace( "MongoHandler:mongoHandler: unknown event type" );

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="MAMInsert" 
+		xmlns:parsley="http://www.spicefactory.org/parsley">
+	
+	<fx:Script>
+		<![CDATA[
+			import com.kdata.mobile.application.MongoQueryEvent;
+			
+			import org.db.mongo.Document;
+			
+			
+			[MessageDispatcher] public var dispatchMessage : Function;
+			
+			protected function insert():void
+			{
+				var doc:Document = new Document();
+				doc.put("nome",txiNome.text);
+				var arr:Array = new Array(doc);
+				dispatchMessage(MongoQueryEvent.getMongoInsert(arr));
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>		
+		<parsley:Configure />		
+	</fx:Declarations>
+	
+	<s:navigationContent>
+		<s:Button icon="@Embed('assets/back.png')" click="navigator.popView()"/>
+	</s:navigationContent>
+	<s:TextInput id="txiNome" left="10" top="20" prompt="Nome"/>
+	<s:Button right="10" top="80" label="Insert" click="insert()"/>
+	
+	
+	
+	
+	
+</s:View>

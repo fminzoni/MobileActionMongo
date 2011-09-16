@@ -63,5 +63,14 @@ package com.kdata.mobile.infrastructure
 		{
 			db.close();
 		}
+		
+		/**
+		 * @brief connect to the database
+		 */
+		public function Insert(documents:Array) : void 
+		{
+			db.getCollection(mongoConfig.dbCollection).insert(documents);
+		}
+		
 	}
 }
