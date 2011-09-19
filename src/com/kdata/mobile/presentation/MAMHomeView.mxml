@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:sf="http://www.spicefactory.org/parsley"
+		 width="100%" height="100%"
+		 title="MobileActionMongo"
+		 creationComplete="setData(event)" 
+		 xmlns:presentation="com.kdata.mobile.presentation.*">
+	
+	<fx:Declarations>		
+		<sf:Configure />
+		<presentation:MAMDAO id="MAMDAO"/>
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[			
+			import com.kdata.mobile.MongoConfig;
+			import com.kdata.mobile.application.InitEvent;
+			import com.kdata.mobile.application.MongoQueryEvent;
+			
+			import mx.events.FlexEvent;
+						
+			[MessageDispatcher] public var dispatchMessage : Function;
+			
+			[Inject] [Bindable] public var config : MongoConfig;
+			
+			public function login() : void 
+			{
+				refreshData();
+				// connect to MongoDB
+				dispatchMessage( InitEvent.getAppReady() );
+			}				
+			
+			protected function saveHost():void
+			{
+				refreshData();
+				var popup:PopUp = new PopUp();
+				if(MAMDAO.insertServer(config))
+					popup.show("Save","Save server complete");
+				else
+					popup.show("Save","Error saved server");
+				
+			}
+			
+			protected function setData(event:FlexEvent):void
+			{
+				if(event.currentTarget.data)
+				{
+					var server:MongoConfig = event.currentTarget.data as MongoConfig;
+					
+					config.name 		= server.name ;
+					config.dbHost		= server.dbHost;
+					config.dbPort 		= server.dbPort;
+					config.dbUser		= server.dbUser;
+					config.dbPassword	= server.dbPassword ;
+					config.dbName 		= server.dbName;
+				}
+			}
+			
+			private function refreshData():void
+			{
+				config.name = txtServerName.text;
+				config.dbHost = txtServerAdress.text;
+				config.dbPort = uint(txtServerPort.text);
+				config.dbUser = txtServerUserName.text;
+				config.dbPassword = txtServerPassword.text;
+				config.dbName = txtServerDBName.text;
+			}
+			
+			protected function clear():void
+			{
+				txtServerName.text 		= null;
+				txtServerAdress.text 	= null;
+				txtServerPort.text	 	= null;
+				txtServerUserName.text 	= null;
+				txtServerPassword.text 	= null;
+				txtServerDBName.text 	= null;
+			}
+			
+		]]>
+	</fx:Script>
+	<s:Scroller  width="100%" height="100%">
+		<s:Group  width="100%" height="100%">
+			<s:Form id="form" x="0" top="0" width="100%" height="100%">
+				<s:FormHeading label="Connection info"/>
+				<s:FormItem label="Name">
+					<s:TextInput id="txtServerName" text="{config.name}" width="150" />
+				</s:FormItem>
+				<s:FormItem label="Host">
+					<s:TextInput id="txtServerAdress" text="{config.dbHost}" width="150" />
+				</s:FormItem>
+				<s:FormItem label="Port">
+					<s:TextInput id="txtServerPort" text="{config.dbPort}" width="150" />
+				</s:FormItem>
+				<s:FormItem label="DBName">
+					<s:TextInput id="txtServerDBName" text="{config.dbName}" width="150" />
+				</s:FormItem>
+				<s:FormItem label="UserName">
+					<s:TextInput id="txtServerUserName" text="{config.dbUser}" width="150" />
+				</s:FormItem>
+				<s:FormItem label="Password">
+					<s:TextInput id="txtServerPassword" text="{config.dbPassword}" width="150" />
+				</s:FormItem>		
+				<s:HGroup width="100%">
+					<s:Button id="btnConnect" label="Connect" click="login()" width="100%" />
+					<s:Button label="Save" width="100%" click="saveHost()" />
+					<s:Button label="New" width="100%"  click="clear()"/>
+				</s:HGroup>
+			</s:Form>
+		</s:Group>
+	</s:Scroller>	
+	
+	
+</s:View>

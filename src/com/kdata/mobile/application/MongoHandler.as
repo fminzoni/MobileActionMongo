@@ -38,15 +38,12 @@ package com.kdata.mobile.application
 					break;
 				
 				case MongoQueryEvent.MONGO_LOGIN_RESULT:
-					FlexGlobals.topLevelApplication.navigator.pushView(MobileActionMongoHome);
+					FlexGlobals.topLevelApplication.tabbedNavigator.selectedNavigator.pushView(MobileActionMongoHome);
 					break;
 				
 				case MongoQueryEvent.MONGO_LOGIN_FAULT:
-					var obj:Object = new Object();
-					obj.title = "Error";
-					obj.text = "Login Failed";
 					var popup:PopUp = new PopUp();
-					popup.show(obj);
+					popup.show("Error","Login Failed");
 					break;
 				case MongoQueryEvent.MONGO_DISCONNECT:
 					mongoQuery.disconnect();

@@ -10,7 +10,6 @@
 	<fx:Declarations>
 		
 		<mobile:MongoConfig />
-				
 		<application:InitHandler />
 		<application:MongoHandler />
 		<presentation:Documents/>
@@ -18,7 +17,7 @@
 		
 		<infrastructure:MongoQuery />
 		
-		<presentation:LoginView />
+		<presentation:MAMHomeView />
 				
 	</fx:Declarations>
 	
