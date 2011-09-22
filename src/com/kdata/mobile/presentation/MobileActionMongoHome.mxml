@@ -26,15 +26,29 @@
 	</s:navigationContent>
 	
 	
-	<s:Button right="70" top="20"  label="New Insert" click="navigator.pushView(MAMInsert)"/>
-	<s:List id="listConn" top="100" bottom="0" left="0" right="0"
-			dataProvider="{model.documents}">
-		<s:itemRenderer>
-			<fx:Component>
-				<s:IconItemRenderer label="{data.nome}">
-				</s:IconItemRenderer>
+	<s:VGroup width="100%" height="100%" gap="0">
+		<s:VGroup width="100%" height="100%" gap="0">
+			<s:List id="listConn" dataProvider="{model.documents}" width="100%" height="100%"
+					change="navigator.pushView(MAMInsert,listConn.selectedItem)">
+				<s:itemRenderer>
+					<fx:Component>
+						<s:IconItemRenderer label="{data.nome}">
+						</s:IconItemRenderer>
+						
+					</fx:Component>
+				</s:itemRenderer>
+			</s:List>	
+		</s:VGroup>
+		<s:HGroup bottom="-1" width="100%" gap="1" height="12%">
+			<s:Button skinClass="com.kdata.mobile.presentation.ButtonMobileSkin" width="100%" height="100%" 
+					  label="New Insert" click="navigator.pushView(MAMInsert)"/>
+		</s:HGroup>
+		
+	</s:VGroup>
 
-			</fx:Component>
-		</s:itemRenderer>
-	</s:List>
+		
+
+	
+	
+
 </s:View>

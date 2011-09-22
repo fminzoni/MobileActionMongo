@@ -80,36 +80,56 @@
 			
 		]]>
 	</fx:Script>
-	<s:Scroller  width="100%" height="100%">
-		<s:Group  width="100%" height="100%">
-			<s:Form id="form" x="0" top="0" width="100%" height="100%">
-				<s:FormHeading label="Connection info"/>
-				<s:FormItem label="Name">
-					<s:TextInput id="txtServerName" text="{config.name}" width="150" />
-				</s:FormItem>
-				<s:FormItem label="Host">
-					<s:TextInput id="txtServerAdress" text="{config.dbHost}" width="150" />
-				</s:FormItem>
-				<s:FormItem label="Port">
-					<s:TextInput id="txtServerPort" text="{config.dbPort}" width="150" />
-				</s:FormItem>
-				<s:FormItem label="DBName">
-					<s:TextInput id="txtServerDBName" text="{config.dbName}" width="150" />
-				</s:FormItem>
-				<s:FormItem label="UserName">
-					<s:TextInput id="txtServerUserName" text="{config.dbUser}" width="150" />
-				</s:FormItem>
-				<s:FormItem label="Password">
-					<s:TextInput id="txtServerPassword" text="{config.dbPassword}" width="150" />
-				</s:FormItem>		
-				<s:HGroup width="100%">
-					<s:Button id="btnConnect" label="Connect" click="login()" width="100%" />
-					<s:Button label="Save" width="100%" click="saveHost()" />
-					<s:Button label="New" width="100%"  click="clear()"/>
-				</s:HGroup>
-			</s:Form>
-		</s:Group>
-	</s:Scroller>	
-	
-	
+	<s:VGroup  width="100%" height="100%" gap="0">
+		<s:Scroller  width="100%" height="100%">
+			<s:Group  width="100%" height="100%">
+				<s:Form id="form" left="2" right="2" top="0" height="100%">
+					<s:FormHeading label="Connection info"/>
+					<s:FormItem label="Name" width="100%" left="2">
+						<s:layout>
+							<s:HorizontalLayout  paddingRight="5" variableColumnWidth="true"/>
+						</s:layout>
+						<s:TextInput id="txtServerName" right="5" width="100%" paddingRight="2"
+									 text="{config.name}"/>
+					</s:FormItem>
+					<s:FormItem label="Host" width="100%">
+						<s:layout>
+							<s:HorizontalLayout  paddingRight="5" variableColumnWidth="true"/>
+						</s:layout>
+						<s:TextInput id="txtServerAdress" text="{config.dbHost}" width="100%" />
+					</s:FormItem>
+					<s:FormItem width="100%" label="Port">
+						<s:layout>
+							<s:HorizontalLayout  paddingRight="5" variableColumnWidth="true"/>
+						</s:layout>
+						<s:TextInput id="txtServerPort" text="{config.dbPort}" width="100%" />
+					</s:FormItem>
+					<s:FormItem width="100%" label="DBName">
+						<s:layout>
+							<s:HorizontalLayout  paddingRight="5" variableColumnWidth="true"/>
+						</s:layout>
+						<s:TextInput id="txtServerDBName" text="{config.dbName}" width="100%" />
+					</s:FormItem>
+					<s:FormItem width="100%" label="UserName">
+						<s:layout>
+							<s:HorizontalLayout  paddingRight="5" variableColumnWidth="true"/>
+						</s:layout>
+						<s:TextInput id="txtServerUserName" text="{config.dbUser}" width="100%" />
+					</s:FormItem>
+					<s:FormItem width="100%" label="Password">
+						<s:layout>
+							<s:HorizontalLayout  paddingRight="5" variableColumnWidth="true"/>
+						</s:layout>
+						<s:TextInput id="txtServerPassword" text="{config.dbPassword}" width="100%" />
+					</s:FormItem>		
+				</s:Form>
+			</s:Group>
+		</s:Scroller>	
+		
+		<s:HGroup bottom="-1" width="100%" gap="1" height="12%">
+			<s:Button skinClass="com.kdata.mobile.presentation.ButtonMobileSkin" label="Connect"  click="login()" width="100%" height="100%" />
+			<s:Button skinClass="com.kdata.mobile.presentation.ButtonMobileSkin" label="Save"  click="saveHost()" width="100%" height="100%" />
+			<s:Button skinClass="com.kdata.mobile.presentation.ButtonMobileSkin" label="New"  click="clear()" width="100%" height="100%" />
+		</s:HGroup>
+	</s:VGroup>
 </s:View>

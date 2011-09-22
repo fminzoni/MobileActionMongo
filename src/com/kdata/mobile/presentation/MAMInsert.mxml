@@ -1,26 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		xmlns:s="library://ns.adobe.com/flex/spark" title="MAMInsert" 
-		xmlns:parsley="http://www.spicefactory.org/parsley">
+		xmlns:parsley="http://www.spicefactory.org/parsley" 
+		creationComplete="init()">
 	
 	<fx:Script>
 		<![CDATA[
 			import com.kdata.mobile.application.MongoQueryEvent;
 			
+			import mx.events.FlexEvent;
+			
 			import org.db.mongo.Document;
+			import org.serialization.bson.ObjectID;
+
+
 			
 			
 			[MessageDispatcher] public var dispatchMessage : Function;
 			
-			protected function insert():void
+			private function init():void
+			{
+				if(data)
+				{
+					txiNome.text = data.nome;
+					cekPref.selected=data.preferred;
+					currentState="updateState";
+				}
+				else
+					currentState="insertState";
+			}
+			
+			
+			private function insert():void
 			{
 				var doc:Document = new Document();
 				doc.put("nome",txiNome.text);
+				doc.put("preferred",cekPref.selected);
 				var arr:Array = new Array(doc);
 				dispatchMessage(MongoQueryEvent.getMongoInsert(arr));
+				navigator.popView();
 			}
+			
+			private function update():void
+			{
+				var doc:Document = new Document();
+				doc.put("_id",data._id);
+				doc.put("nome",txiNome.text);
+				doc.put("preferred",cekPref.selected);
+				var arr:Array = new Array(doc);
+				dispatchMessage(MongoQueryEvent.getMongoUpdate(arr));
+				navigator.popView();
+			}
+			
+			private function deleteItem():void
+			{
+				var doc:Document = new Document();
+				doc.put("_id",data._id);
+				var arr:Array = new Array(doc);
+				dispatchMessage(MongoQueryEvent.getMongoDelete(arr));
+				navigator.popView();
+			}
+			
 		]]>
 	</fx:Script>
+	<s:states>
+		<s:State name="insertState"/>
+		<s:State name="updateState"/>
+	</s:states>
 	
 	<fx:Declarations>		
 		<parsley:Configure />		
@@ -29,11 +75,40 @@
 	<s:navigationContent>
 		<s:Button icon="@Embed('assets/back.png')" click="navigator.popView()"/>
 	</s:navigationContent>
-	<s:TextInput id="txiNome" left="10" top="20" prompt="Nome"/>
-	<s:Button right="10" top="80" label="Insert" click="insert()"/>
+	
+	<s:Group width="100%" height="100%">
+		<s:VGroup top="10" width="100%" height="100%" gap="10">
+			<s:HGroup width="100%" horizontalAlign="center"
+					  paddingBottom.insertState="5" paddingTop.insertState="5">
+				<s:TextInput id="txiNome" prompt="Nome"/>
+			</s:HGroup>
+			
+			
+			<s:HGroup width="100%" horizontalAlign="left" paddingLeft="40" verticalAlign="middle"
+					  paddingBottom.insertState="5" paddingTop.insertState="5">
+				<s:Label left="20" top="80" width="120" height="20" color="#FF0000" fontSize="22"
+						 fontStyle="normal" fontWeight="bold" text="Preferred : " textAlign="left"
+						 textDecoration="none" verticalAlign="middle"/>
+				<s:CheckBox id="cekPref" left="150" top="72"/>
+			</s:HGroup>
+			
+
+		</s:VGroup>
+		
+		
+		<s:HGroup bottom="-1" width="100%" gap="1" height="12%">
+			<s:Button skinClass="com.kdata.mobile.presentation.ButtonMobileSkin" width="100%" height="100%" 
+					  label="Delete" click="deleteItem()" includeIn="updateState"/>
+			<s:Button skinClass="com.kdata.mobile.presentation.ButtonMobileSkin" width="100%" height="100%"
+					  label="Update" click="update()" includeIn="updateState"/>
+			<s:Button skinClass="com.kdata.mobile.presentation.ButtonMobileSkin" width="100%" height="100%" 
+					  label="Insert" click="insert()" includeIn="insertState"/>
+		</s:HGroup>
+		
+	</s:Group>
 	
 	
-	
-	
+
+		
 	
 </s:View>

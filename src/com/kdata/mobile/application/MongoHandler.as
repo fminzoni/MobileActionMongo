@@ -49,8 +49,14 @@ package com.kdata.mobile.application
 					mongoQuery.disconnect();
 					break;
 				case MongoQueryEvent.MONGO_INSERT:
-					mongoQuery.Insert(event.documents)
-					break;				
+					mongoQuery.insert(event.documents)
+					break;
+				case MongoQueryEvent.MONGO_DELETE:
+					mongoQuery.deleteDoc(event.documents);
+					break;
+				case MongoQueryEvent.MONGO_UDATE:
+					mongoQuery.update(event.documents);
+					break;
 				
 				default:
 					// should never get here

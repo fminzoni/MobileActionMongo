@@ -36,7 +36,11 @@
 			change="loadServer()">
 		<s:itemRenderer>
 			<fx:Component>
-				<s:IconItemRenderer label="{data.name}"/>
+				<s:IconItemRenderer label="{data.name}" decorator="@Embed('assets/back.png')">
+					<s:iconPlaceholder>
+						
+					</s:iconPlaceholder>
+				</s:IconItemRenderer>
 			</fx:Component>
 		</s:itemRenderer>
 	</s:List>

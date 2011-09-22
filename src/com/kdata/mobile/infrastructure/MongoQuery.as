@@ -65,12 +65,26 @@ package com.kdata.mobile.infrastructure
 		}
 		
 		/**
-		 * @brief connect to the database
+		 * @brief insert to the database
 		 */
-		public function Insert(documents:Array) : void 
+		public function insert(documents:Array) : void 
 		{
 			db.getCollection(mongoConfig.dbCollection).insert(documents);
 		}
+		
+		/**
+		 * @brief delete to the database
+		 */
+		public function deleteDoc(documents:Array) : void 
+		{
+			db.getCollection(mongoConfig.dbCollection).deleteDoc(documents);
+		}
+		
+		public function update(documents:Array) : void 
+		{
+			db.getCollection(mongoConfig.dbCollection).update(documents);
+		}
+		
 		
 	}
 }

@@ -14,5 +14,5 @@
 		
 	<s:ViewNavigator label="Home" width="100%" height="100%" firstView="com.kdata.mobile.presentation.MAMHomeView"/>
 	<s:ViewNavigator label="Settings" width="100%" height="100%" firstView="com.kdata.mobile.presentation.MAMSettings"/>
-	<s:ViewNavigator label="Insert" width="100%" height="100%" firstView="com.kdata.mobile.presentation.MAMInsert"/>
+	<s:ViewNavigator label="About" width="100%" height="100%" firstView="com.kdata.mobile.presentation.MAMAbout"/>
 </s:TabbedViewNavigatorApplication>
