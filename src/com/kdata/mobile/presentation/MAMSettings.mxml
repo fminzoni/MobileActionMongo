@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" title="MAMSettings" xmlns:presentation="com.kdata.mobile.presentation.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.core.FlexGlobals;
+			import mx.events.FlexEvent;
+			
+			import spark.components.NavigatorContent;
+			import spark.components.TabbedViewNavigator;
+			import spark.components.ViewNavigator;
+			import spark.events.IndexChangeEvent;
+			
+			protected function loadData():void
+			{
+				data=MAMDAO.findAll();
+			}
+			
+			protected function loadServer():void
+			{
+				FlexGlobals.topLevelApplication.tabbedNavigator.selectedIndex=0;
+				FlexGlobals.topLevelApplication.tabbedNavigator.selectedNavigator.popAll();
+				FlexGlobals.topLevelApplication.tabbedNavigator.selectedNavigator.pushView(MAMHomeView,listConn.selectedItem);
+			}
+			
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<presentation:MAMDAO id="MAMDAO"/>
+	</fx:Declarations>
+	
+	
+	<s:Label text="Connections" />
+	<s:List id="listConn" top="0" bottom="0" left="0" right="0"
+			creationComplete="loadData()" dataProvider="{data}"
+			change="loadServer()">
+		<s:itemRenderer>
+			<fx:Component>
+				<s:IconItemRenderer label="{data.name}" decorator="@Embed('assets/back.png')">
+					<s:iconPlaceholder>
+						
+					</s:iconPlaceholder>
+				</s:IconItemRenderer>
+			</fx:Component>
+		</s:itemRenderer>
+	</s:List>
+	
+</s:View>
